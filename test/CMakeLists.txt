@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 20)
 #Add the google test subdirectory
 add_subdirectory(googletest)
 
+include_directories(../src)
+
 #include googletest/include dir
 include_directories(googletest/googletest/include)
 
@@ -13,7 +15,7 @@ include_directories(googletest/googletest/include)
 include_directories(googletest/googlemock/include)
 
 #Define your executable
-add_executable(TrashMoverTest test/test_main.cpp)
+add_executable(TrashMoverTest test/test_main.cpp test/ArgumentTest.cpp ../src/ArgsDefinition.cpp ../src/ArgumentParser.cpp)
 
 #Link with GoogleTest
 target_link_libraries(TrashMoverTest gtest gtest_main)

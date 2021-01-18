@@ -1,1 +1,1 @@
-add_executable(TrashMoverClient main.cpp)
+add_executable(TrashMoverClient main.cpp ArgumentParser.cpp ArgsDefinition.cpp)
