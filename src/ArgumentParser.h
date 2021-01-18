@@ -54,7 +54,7 @@ private:
             "verbose", [this]() {
                 args_definition.setIsVerbose(true);
             }
-        },
+        }
     };
 
 public:

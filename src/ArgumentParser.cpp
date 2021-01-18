@@ -31,17 +31,10 @@ void ArgumentParser::parse_short(string arg) {
 }
 
 void ArgumentParser::_parse_short(char single_var) {
-    function<void (void)> invoke_function;
-
-    // Set Function to invoke.
-    if (shortargs_map.contains(single_var)) {
-        invoke_function = shortargs_map[single_var];
-
-    } else {
-        invoke_function = [single_var]() {
-            cerr << "Args " << single_var << " is not on argument list." << endl;
-        };
-    }
+    function<void (void)> invoke_function = (shortargs_map.contains(single_var)) ?
+            shortargs_map[single_var] : [single_var]() {
+                cerr << "Args " << single_var << " is not on argument list." << endl;
+            };
 
     invoke_function();
 }
