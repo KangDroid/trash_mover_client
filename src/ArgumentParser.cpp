@@ -19,6 +19,9 @@ void ArgumentParser::parse_main(int argc, char **argv) {
         } else if (argv[i][0] == '-' && argv[i][1] == '-') {
             // Long Argument
             parse_long(arg_cxx.substr(2, arg_cxx.length()));
+        } else {
+            // Might files.
+            check_push(arg_cxx);
         }
     }
 }
@@ -51,4 +54,13 @@ void ArgumentParser::parse_long(string arg) {
 
 ArgsDefinition* ArgumentParser::getArgsDefinition() {
     return &args_definition;
+}
+
+void ArgumentParser::check_push(string arg) {
+    filesystem::path target_path(arg);
+    if (filesystem::exists(target_path)) {
+        to_delete.push_back(filesystem::absolute(target_path).string());
+    } else {
+        cerr << "File: " << filesystem::absolute(target_path) << " does not exists." << endl;
+    }
 }

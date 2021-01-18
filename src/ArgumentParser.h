@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <vector>
+#include <filesystem>
 #include "ArgsDefinition.h"
 
 using namespace std;
@@ -15,6 +17,7 @@ class ArgumentParser {
 private:
     // The Argument Booleans
     ArgsDefinition args_definition;
+    vector<string> to_delete;
 
 private:
     // Hashmap to store work.
@@ -67,6 +70,7 @@ private:
     void parse_short(string arg);
     void _parse_short(char single_var);
     void parse_long(string arg);
+    void check_push(string arg);
 };
 
 
