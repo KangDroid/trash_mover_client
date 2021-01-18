@@ -23,8 +23,8 @@ TEST_F(ArgumentTesting, ShortSingleArgumentTrue) {
     // Let
     int argc = 2;
     char* args[] = {
-            "./test",
-            "-r"
+            (char*)"./test",
+            (char*)"-r"
     };
 
     // do work
@@ -40,8 +40,8 @@ TEST_F(ArgumentTesting, ShortSingleArgumentTrue) {
 TEST_F(ArgumentTesting, ShortSingleArgumentFalse) {
     int argc = 2;
     char* args[] = {
-            "./test",
-            "-a"
+            (char*)"./test",
+            (char*)"-a"
     };
 
     // do work
@@ -56,8 +56,8 @@ TEST_F(ArgumentTesting, ShortSingleArgumentFalse) {
 TEST_F(ArgumentTesting, ShortMultipleArgumentTrue) {
     int argc = 2;
     char* args[] = {
-            "./test",
-            "-rf"
+            (char*)"./test",
+            (char*)"-rf"
     };
 
     // do work
@@ -73,8 +73,8 @@ TEST_F(ArgumentTesting, ShortMultipleArgumentFalse) {
     // Let
     int argc = 2;
     char* args[] = {
-            "./test",
-            "-as"
+            (char*)"./test",
+            (char*)"-as"
     };
 
     // do work
@@ -90,8 +90,8 @@ TEST_F(ArgumentTesting, LongSingleArgumentTrue) {
     // Let
     int argc = 2;
     char* args[] = {
-            "./test",
-            "--recursive"
+            (char*)"./test",
+            (char*)"--recursive"
     };
 
     // do work
@@ -105,8 +105,8 @@ TEST_F(ArgumentTesting, LongSingleArgumentFalse) {
     // Let
     int argc = 2;
     char* args[] = {
-            "./test",
-            "--unknown-option"
+            (char*)"./test",
+            (char*)"--unknown-option"
     };
 
     // do work
@@ -120,11 +120,11 @@ TEST_F(ArgumentTesting, LongMultipleArgumentTrue) {
     // Let
     int argc = 5;
     char* args[] = {
-            "./test",
-            "--recursive",
-            "--autorun_server",
-            "--force",
-            "--verbose"
+            (char*)"./test",
+            (char*)"--recursive",
+            (char*)"--autorun_server",
+            (char*)"--force",
+            (char*)"--verbose"
 
     };
 
@@ -142,10 +142,10 @@ TEST_F(ArgumentTesting, ShortLongCombined) {
     // Let
     int argc = 4;
     char* args[] = {
-            "./test",
-            "--autorun_server",
-            "--recursive",
-            "-vf"
+            (char*)"./test",
+            (char*)"--autorun_server",
+            (char*)"--recursive",
+            (char*)"-vf"
     };
 
     // do work
