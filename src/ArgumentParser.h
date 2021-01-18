@@ -14,12 +14,12 @@
 using namespace std;
 
 class ArgumentParser {
-private:
+protected:
     // The Argument Booleans
     ArgsDefinition args_definition;
     vector<string> to_delete;
 
-private:
+protected:
     // Hashmap to store work.
     unordered_map<char, function<void (void)>> shortargs_map {
         {'r', [this]() {
@@ -60,17 +60,17 @@ private:
         }
     };
 
+protected:
+    void parse_short(string arg);
+    void _parse_short(char single_var);
+    void parse_long(string arg);
+    void check_push(string arg);
+
 public:
     ArgsDefinition* getArgsDefinition();
 
 public:
     void parse_main(int argc, char** argv);
-
-private:
-    void parse_short(string arg);
-    void _parse_short(char single_var);
-    void parse_long(string arg);
-    void check_push(string arg);
 };
 
 

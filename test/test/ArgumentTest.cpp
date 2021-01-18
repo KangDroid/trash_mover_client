@@ -7,10 +7,9 @@
 #include "ArgumentParser.h"
 using namespace std;
 
-class ArgumentTesting : public testing::Test {
+class ArgumentTesting : public testing::Test, protected ArgumentParser {
 protected:
-    ArgumentParser argumentParser;
-    ArgsDefinition* argsDefinition = argumentParser.getArgsDefinition();
+    ArgsDefinition* argsDefinition = getArgsDefinition();
 
     void SetUp() {
         argsDefinition->setIsVerbose(false);
@@ -28,7 +27,7 @@ TEST_F(ArgumentTesting, ShortSingleArgumentTrue) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
 
 
     // Assert
@@ -45,7 +44,7 @@ TEST_F(ArgumentTesting, ShortSingleArgumentFalse) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
 
     // Assert
     EXPECT_EQ(argsDefinition->isServerOn(), false);
@@ -61,7 +60,7 @@ TEST_F(ArgumentTesting, ShortMultipleArgumentTrue) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
 
     // Assert
     EXPECT_EQ(argsDefinition->isServerOn(), false);
@@ -78,7 +77,7 @@ TEST_F(ArgumentTesting, ShortMultipleArgumentFalse) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
 
     // Assert
     EXPECT_EQ(argsDefinition->isServerOn(), false);
@@ -95,7 +94,7 @@ TEST_F(ArgumentTesting, LongSingleArgumentTrue) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
     EXPECT_EQ(argsDefinition->isServerOn(), false);
     EXPECT_EQ(argsDefinition->isForce(), false);
     EXPECT_EQ(argsDefinition->isRecursive(), true);
@@ -110,7 +109,7 @@ TEST_F(ArgumentTesting, LongSingleArgumentFalse) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
     EXPECT_EQ(argsDefinition->isServerOn(), false);
     EXPECT_EQ(argsDefinition->isForce(), false);
     EXPECT_EQ(argsDefinition->isRecursive(), false);
@@ -129,7 +128,7 @@ TEST_F(ArgumentTesting, LongMultipleArgumentTrue) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
 
     // Assert
     EXPECT_EQ(argsDefinition->isVerbose(), true);
@@ -149,7 +148,7 @@ TEST_F(ArgumentTesting, ShortLongCombined) {
     };
 
     // do work
-    argumentParser.parse_main(argc, args);
+    parse_main(argc, args);
 
     // Assert
     EXPECT_EQ(argsDefinition->isVerbose(), true);
