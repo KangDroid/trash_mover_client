@@ -156,3 +156,20 @@ TEST_F(ArgumentTesting, ShortLongCombined) {
     EXPECT_EQ(argsDefinition->isForce(), true);
     EXPECT_EQ(argsDefinition->isRecursive(), true);
 }
+
+TEST_F(ArgumentTesting, IsPushWorkingTrue) {
+    // do work
+    check_push("/tmp");
+
+    // Assert
+    ASSERT_EQ(to_delete.size(), 1);
+    EXPECT_EQ(to_delete[0], "/tmp");
+}
+
+TEST_F(ArgumentTesting, IsPushWorkingFalse) {
+    // do work
+    check_push("/random/does/not/exists");
+
+    // Assert
+    EXPECT_EQ(to_delete.size(), 0);
+}
