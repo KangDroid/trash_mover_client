@@ -33,6 +33,30 @@ private:
         }
     };
 
+    // Hashmap to store long-args work
+    unordered_map<string, function<void (void)>> longargs_map {
+        {
+            "autorun_server", [this]() {
+                args_definition.setServerOn(true);
+            }
+        },
+        {
+            "recursive", [this]() {
+                args_definition.setIsRecursive(true);
+            }
+        },
+        {
+            "force", [this]() {
+                args_definition.setIsForce(true);
+            }
+        },
+        {
+            "verbose", [this]() {
+                args_definition.setIsVerbose(true);
+            }
+        },
+    };
+
 public:
     ArgsDefinition* getArgsDefinition();
 
@@ -42,6 +66,7 @@ public:
 private:
     void parse_short(string arg);
     void _parse_short(char single_var);
+    void parse_long(string arg);
 };
 
 

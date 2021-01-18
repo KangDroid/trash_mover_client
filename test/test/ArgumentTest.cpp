@@ -19,7 +19,7 @@ protected:
     }
 };
 
-TEST_F(ArgumentTesting, SingleArgumentTrue) {
+TEST_F(ArgumentTesting, ShortSingleArgumentTrue) {
     // Let
     int argc = 2;
     char* args[] = {
@@ -37,7 +37,7 @@ TEST_F(ArgumentTesting, SingleArgumentTrue) {
     EXPECT_EQ(argsDefinition->isRecursive(), true);
 }
 
-TEST_F(ArgumentTesting, SingleArgumentFalse) {
+TEST_F(ArgumentTesting, ShortSingleArgumentFalse) {
     int argc = 2;
     char* args[] = {
             "./test",
@@ -53,7 +53,7 @@ TEST_F(ArgumentTesting, SingleArgumentFalse) {
     EXPECT_EQ(argsDefinition->isRecursive(), false);
 }
 
-TEST_F(ArgumentTesting, MultipleArgumentTrue) {
+TEST_F(ArgumentTesting, ShortMultipleArgumentTrue) {
     int argc = 2;
     char* args[] = {
             "./test",
@@ -69,7 +69,7 @@ TEST_F(ArgumentTesting, MultipleArgumentTrue) {
     EXPECT_EQ(argsDefinition->isRecursive(), true);
 }
 
-TEST_F(ArgumentTesting, MultipleArgumentFalse) {
+TEST_F(ArgumentTesting, ShortMultipleArgumentFalse) {
     // Let
     int argc = 2;
     char* args[] = {
@@ -84,4 +84,76 @@ TEST_F(ArgumentTesting, MultipleArgumentFalse) {
     EXPECT_EQ(argsDefinition->isServerOn(), false);
     EXPECT_EQ(argsDefinition->isForce(), false);
     EXPECT_EQ(argsDefinition->isRecursive(), false);
+}
+
+TEST_F(ArgumentTesting, LongSingleArgumentTrue) {
+    // Let
+    int argc = 2;
+    char* args[] = {
+            "./test",
+            "--recursive"
+    };
+
+    // do work
+    argumentParser.parse_main(argc, args);
+    EXPECT_EQ(argsDefinition->isServerOn(), false);
+    EXPECT_EQ(argsDefinition->isForce(), false);
+    EXPECT_EQ(argsDefinition->isRecursive(), true);
+}
+
+TEST_F(ArgumentTesting, LongSingleArgumentFalse) {
+    // Let
+    int argc = 2;
+    char* args[] = {
+            "./test",
+            "--unknown-option"
+    };
+
+    // do work
+    argumentParser.parse_main(argc, args);
+    EXPECT_EQ(argsDefinition->isServerOn(), false);
+    EXPECT_EQ(argsDefinition->isForce(), false);
+    EXPECT_EQ(argsDefinition->isRecursive(), false);
+}
+
+TEST_F(ArgumentTesting, LongMultipleArgumentTrue) {
+    // Let
+    int argc = 5;
+    char* args[] = {
+            "./test",
+            "--recursive",
+            "--autorun_server",
+            "--force",
+            "--verbose"
+
+    };
+
+    // do work
+    argumentParser.parse_main(argc, args);
+
+    // Assert
+    EXPECT_EQ(argsDefinition->isVerbose(), true);
+    EXPECT_EQ(argsDefinition->isServerOn(), true);
+    EXPECT_EQ(argsDefinition->isForce(), true);
+    EXPECT_EQ(argsDefinition->isRecursive(), true);
+}
+
+TEST_F(ArgumentTesting, ShortLongCombined) {
+    // Let
+    int argc = 4;
+    char* args[] = {
+            "./test",
+            "--autorun_server",
+            "--recursive",
+            "-vf"
+    };
+
+    // do work
+    argumentParser.parse_main(argc, args);
+
+    // Assert
+    EXPECT_EQ(argsDefinition->isVerbose(), true);
+    EXPECT_EQ(argsDefinition->isServerOn(), true);
+    EXPECT_EQ(argsDefinition->isForce(), true);
+    EXPECT_EQ(argsDefinition->isRecursive(), true);
 }
