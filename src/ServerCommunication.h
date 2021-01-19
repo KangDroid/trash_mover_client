@@ -20,16 +20,22 @@ class ServerCommunication {
 // Member Fields
 protected:
     bool server_alive;
+    ArgsDefinition *args_def;
 
 protected:
     void check_server_alive();
-    bool request_server(http_request& request_type, http_client& client, function<bool (string)> checker);
+
+    bool request_server(http_request &request_type, http_client &client, function<bool(string)> checker);
+
     uri_builder custom_uri_builder(string path);
+
     bool _post_data(string delete_target);
 
 public:
     ServerCommunication();
-    void post_data(vector<string>& to_delete, ArgsDefinition* args_def);
+    ServerCommunication(ArgsDefinition* inputArgs);
+
+    void post_data(vector<string> &to_delete);
 };
 
 

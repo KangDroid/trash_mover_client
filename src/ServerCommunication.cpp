@@ -42,11 +42,16 @@ bool ServerCommunication::request_server(http_request &request_type, http_client
     return checker(response);
 }
 
+ServerCommunication::ServerCommunication(ArgsDefinition* argsInput) {
+    this->args_def = argsInput;
+    check_server_alive();
+}
+
 ServerCommunication::ServerCommunication() {
     check_server_alive();
 }
 
-void ServerCommunication::post_data(vector<string>& to_delete, ArgsDefinition* args_def) {
+void ServerCommunication::post_data(vector<string>& to_delete) {
     for (string target : to_delete) {
         _post_data(target);
     }
