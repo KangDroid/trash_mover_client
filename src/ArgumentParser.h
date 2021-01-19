@@ -68,6 +68,7 @@ protected:
 
 public:
     ArgsDefinition* getArgsDefinition();
+    vector<string>& get_to_delete();
 
 public:
     void parse_main(int argc, char** argv);

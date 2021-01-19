@@ -46,7 +46,7 @@ ServerCommunication::ServerCommunication() {
     check_server_alive();
 }
 
-void ServerCommunication::post_data(vector<string> to_delete) {
+void ServerCommunication::post_data(vector<string>& to_delete, ArgsDefinition* args_def) {
     for (string target : to_delete) {
         _post_data(target);
     }

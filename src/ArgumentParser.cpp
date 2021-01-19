@@ -64,3 +64,7 @@ void ArgumentParser::check_push(string arg) {
         cerr << "File: " << filesystem::absolute(target_path) << " does not exists." << endl;
     }
 }
+
+vector<string> &ArgumentParser::get_to_delete() {
+    return this->to_delete;
+}

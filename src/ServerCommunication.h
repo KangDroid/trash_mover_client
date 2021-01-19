@@ -9,6 +9,8 @@
 #include <cpprest/http_client.h>
 #include <cpprest/json.h>
 
+#include "ArgsDefinition.h"
+
 using namespace std;
 using namespace web;
 using namespace web::http;
@@ -27,7 +29,7 @@ protected:
 
 public:
     ServerCommunication();
-    void post_data(vector<string> to_delete);
+    void post_data(vector<string>& to_delete, ArgsDefinition* args_def);
 };
 
 
