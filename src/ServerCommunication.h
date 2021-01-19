@@ -23,7 +23,7 @@ protected:
     void check_server_alive();
     bool request_server(http_request& request_type, http_client& client, function<bool (string)> checker);
     uri_builder custom_uri_builder(string path);
-    void _post_data(string delete_target);
+    bool _post_data(string delete_target);
 
 public:
     ServerCommunication();
