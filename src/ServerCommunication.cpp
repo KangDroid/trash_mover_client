@@ -69,7 +69,10 @@ bool ServerCommunication::_post_data(string delete_target) {
     request_type.set_body(main_post);
 
     // Return value
-    return request_server(request_type, client_req, [delete_target](string response) {
+    return request_server(request_type, client_req, [delete_target, this](string response) {
+        if (args_def->isVerbose()) {
+            cout << delete_target << "  -->  " << response << endl;
+        }
         return !response.empty() && (response.find(filesystem::path(delete_target).filename()) != string::npos);
     });
 }
