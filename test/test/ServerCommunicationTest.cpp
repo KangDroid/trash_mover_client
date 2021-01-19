@@ -23,7 +23,9 @@ TEST_F(ServerCommunicationTest, CheckRequestNormal) {
     http_client client("https://github.com");
 
     // do work
-    bool assert_this = request_server(request_type, client, "github");
+    bool assert_this = request_server(request_type, client, [](string response) {
+        return response.find("github") != string::npos;
+    });
 
     // assert
     EXPECT_EQ(assert_this, true);

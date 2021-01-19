@@ -11,7 +11,9 @@ void ServerCommunication::check_server_alive() {
     http_client client(custom_uri_builder("api/alive").to_string());
 
     // Check whether server is alive.
-    server_alive = request_server(request_type, client, "Server is Running!");
+    server_alive = request_server(request_type, client, [](const string& input) {
+        return input.find("Server is Running!") != string::npos;
+    });
 }
 
 uri_builder ServerCommunication::custom_uri_builder(string path) {
@@ -24,7 +26,7 @@ uri_builder ServerCommunication::custom_uri_builder(string path) {
     return uri_target;
 }
 
-bool ServerCommunication::request_server(http_request &request_type, http_client &client, string target) {
+bool ServerCommunication::request_server(http_request &request_type, http_client &client, function<bool (string)> checker) {
     string response;
     try {
         client.request(request_type).then([&response] (http_response hr) {
@@ -35,8 +37,7 @@ bool ServerCommunication::request_server(http_request &request_type, http_client
         cerr << expn.what() << endl;
         return false;
     }
-
-    return response.find(target) != string::npos;
+    return checker(response);
 }
 
 ServerCommunication::ServerCommunication() {
