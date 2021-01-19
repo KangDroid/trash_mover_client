@@ -60,11 +60,11 @@ bool ServerCommunication::_post_data(string delete_target) {
     http_request request_type(methods::POST);
     json::value main_post = json::value::object();
     main_post["cwdLocation"] = json::value::string("/Users/kangdroid");
-    main_post["originalFileDirectory"] = json::value::string(std::move(delete_target));
+    main_post["originalFileDirectory"] = json::value::string(delete_target);
     request_type.set_body(main_post);
 
     // Return value
-    return request_server(request_type, client_req, [](string response) {
-        return !response.empty() && all_of(response.begin(), response.end(), ::isdigit);
+    return request_server(request_type, client_req, [delete_target](string response) {
+        return !response.empty() && (response.find(filesystem::path(delete_target).filename()) != string::npos);
     });
 }
