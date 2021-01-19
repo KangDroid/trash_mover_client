@@ -7,8 +7,10 @@
 
 #include <iostream>
 #include <cpprest/http_client.h>
+#include <cpprest/json.h>
 
 using namespace std;
+using namespace web;
 using namespace web::http;
 using namespace web::http::client;
 
@@ -21,9 +23,11 @@ protected:
     void check_server_alive();
     bool request_server(http_request& request_type, http_client& client, function<bool (string)> checker);
     uri_builder custom_uri_builder(string path);
+    void _post_data(string delete_target);
 
 public:
     ServerCommunication();
+    void post_data(vector<string> to_delete);
 };
 
 

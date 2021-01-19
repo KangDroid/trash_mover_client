@@ -4,6 +4,8 @@
 
 #include "ServerCommunication.h"
 
+#include <utility>
+
 void ServerCommunication::check_server_alive() {
     string response;
     // Basic http request variable building
@@ -42,4 +44,17 @@ bool ServerCommunication::request_server(http_request &request_type, http_client
 
 ServerCommunication::ServerCommunication() {
     check_server_alive();
+}
+
+void ServerCommunication::post_data(vector<string> to_delete) {
+    for (string target : to_delete) {
+        _post_data(target);
+    }
+}
+
+void ServerCommunication::_post_data(string delete_target) {
+    http_request request_type(methods::POST);
+    json::value main_post = json::value::object();
+    main_post["cwdLocation"] = json::value::string("/Users/kangdroid");
+    main_post["originalFileDirectory"] = json::value::string(std::move(delete_target));
 }
