@@ -59,6 +59,10 @@ ArgsDefinition* ArgumentParser::getArgsDefinition() {
 void ArgumentParser::check_push(string arg) {
     filesystem::path target_path(arg);
     if (filesystem::exists(target_path)) {
+        if (filesystem::is_directory(target_path) && !args_definition.isRecursive()) {
+            cerr << "Target: " << filesystem::absolute(target_path) << " is a folder.(add -r/--recursive option)" << endl;
+            return;
+        }
         to_delete.push_back(filesystem::absolute(target_path).string());
     } else {
         cerr << "File: " << filesystem::absolute(target_path) << " does not exists." << endl;

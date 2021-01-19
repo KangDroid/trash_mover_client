@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <gtest/gtest.h>
+#include <fstream>
 #include "ArgumentParser.h"
 using namespace std;
 
@@ -158,12 +159,28 @@ TEST_F(ArgumentTesting, ShortLongCombined) {
 }
 
 TEST_F(ArgumentTesting, IsPushWorkingTrue) {
+    // Create file
+    ofstream("/tmp/testKDR.txt").close();
+
+    // do work
+    check_push("/tmp/testKDR.txt");
+
+    // Assert
+    ASSERT_EQ(to_delete.size(), 1);
+    EXPECT_EQ(to_delete[0], "/tmp/testKDR.txt");
+
+    // remove
+    if (filesystem::exists("/tmp/testKDR.txt")) {
+        filesystem::remove("/tmp/testKDR.txt");
+    }
+}
+
+TEST_F(ArgumentTesting, IsPushWorkingFolder) {
     // do work
     check_push("/tmp");
 
     // Assert
-    ASSERT_EQ(to_delete.size(), 1);
-    EXPECT_EQ(to_delete[0], "/tmp");
+    EXPECT_EQ(to_delete.size(), 0);
 }
 
 TEST_F(ArgumentTesting, IsPushWorkingFalse) {
