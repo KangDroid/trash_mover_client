@@ -31,6 +31,7 @@ bool ServerCommunication::request_server(http_request &request_type, http_client
             response = hr.extract_string().get();
         }).wait();
     } catch (const exception& expn) {
+        cerr << "Error occurred when connecting backend server." << endl;
         cerr << expn.what() << endl;
         return false;
     }
