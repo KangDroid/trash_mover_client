@@ -33,6 +33,10 @@ protected:
         {'v', [this]() {
                 args_definition.setIsVerbose(true);
             }
+        },
+        { 's', [this]() {
+                args_definition.setShowAll(true);
+            }
         }
     };
 
@@ -61,6 +65,11 @@ protected:
         {
             "version", [this]() {
                 args_definition.setShowVersion(true);
+            }
+        },
+        {
+            "show", [this]() {
+                args_definition.setShowAll(true);
             }
         }
     };

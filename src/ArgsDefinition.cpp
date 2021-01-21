@@ -50,3 +50,11 @@ bool ArgsDefinition::isShowVersion() const {
 void ArgsDefinition::setShowVersion(bool showVersion) {
     show_version = showVersion;
 }
+
+bool ArgsDefinition::isShowAll() const {
+    return show_all;
+}
+
+void ArgsDefinition::setShowAll(bool showAll) {
+    show_all = showAll;
+}

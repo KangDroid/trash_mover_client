@@ -55,6 +55,9 @@ void ServerCommunication::post_data(vector<string>& to_delete) {
     if (args_def->isShowVersion()) {
         show_version();
         return;
+    } else if (args_def->isShowAll()) {
+        show_all();
+        return;
     }
 
     for (string target : to_delete) {
@@ -112,5 +115,29 @@ bool ServerCommunication::show_version() {
     cout << " on: " << __DATE__ << ", " << __TIME__ << endl;
 
     // Check whether server is alive.
+    return isSucceed;
+}
+
+bool ServerCommunication::show_all() {
+    string response;
+    // Basic http request variable building
+    http_request request_type(methods::GET);
+    http_client client(custom_uri_builder("api/trash/data/all").to_string());
+
+    // Response Json
+    json::value root_value;
+
+    bool isSucceed = request_server(request_type, client, [&root_value](const string& input) {
+        root_value = web::json::value::parse(input);
+        return !input.empty() && input.find("cwdLocation") != string::npos;
+    });
+
+    for (int i = 0; i < root_value.size(); i++) {
+        cout << "CWD Location: " << root_value[i]["cwdLocation"].as_string() << endl;
+        cout << "Original File Path: " << root_value[i]["originalFileDirectory"].as_string() << endl;
+        cout << "Trash File Path: " << root_value[i]["trashFileDirectory"].as_string() << endl;
+        cout << endl;
+    }
+
     return isSucceed;
 }

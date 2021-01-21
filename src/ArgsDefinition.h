@@ -26,6 +26,9 @@ private:
     // --version
     bool show_version;
 
+    // --show | -s
+    bool show_all;
+
 public:
     // Default Constructor
     ArgsDefinition();
@@ -42,6 +45,8 @@ public:
     void setIsVerbose(bool isVerbose);
     bool isShowVersion() const;
     void setShowVersion(bool showVersion);
+    bool isShowAll() const;
+    void setShowAll(bool showAll);
 };
 
 

@@ -88,4 +88,29 @@ TEST_F(ServerCommunicationTest, CheckVersionWorks) {
     // Assert
     EXPECT_EQ(isSucceed, true);
 }
+
+TEST_F(ServerCommunicationTest, CheckShowingAllWorks) {
+    args_def = new ArgsDefinition();
+    // First create files
+    string base_name = "KDR_TESTING_FILES_";
+    int file_count = 10;
+
+    for (int i = 0; i < file_count; i++) {
+        string file_name = "/tmp/" + base_name + to_string(i);
+        ofstream test_file(file_name);
+        test_file << "test using" << endl;
+
+        // assert
+        bool assert_this = _post_data(file_name);
+        test_file.close();
+
+        // cleanup
+        if (filesystem::exists(file_name)) {
+            filesystem::remove(file_name);
+        }
+    }
+
+    EXPECT_EQ(show_all(), true);
+    delete args_def;
+}
 #endif

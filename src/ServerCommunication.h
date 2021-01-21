@@ -33,6 +33,8 @@ protected:
 
     bool show_version();
 
+    bool show_all();
+
 public:
     ServerCommunication();
     ServerCommunication(ArgsDefinition* inputArgs);
