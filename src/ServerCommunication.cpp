@@ -44,11 +44,11 @@ bool ServerCommunication::request_server(http_request &request_type, http_client
 
 ServerCommunication::ServerCommunication(ArgsDefinition* argsInput) {
     this->args_def = argsInput;
-    check_server_alive();
+//    check_server_alive();
 }
 
 ServerCommunication::ServerCommunication() {
-    check_server_alive();
+//    check_server_alive();
 }
 
 void ServerCommunication::post_data(vector<string>& to_delete) {
