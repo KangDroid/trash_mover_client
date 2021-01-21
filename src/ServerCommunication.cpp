@@ -53,6 +53,15 @@ ServerCommunication::ServerCommunication() {
 
 void ServerCommunication::post_data(vector<string>& to_delete) {
     for (string target : to_delete) {
+        if (!args_def->isForce()) {
+            string input_check;
+            cout << "Really Delete: " << target << "?[y/n]";
+            getline(cin, input_check);
+
+            if (input_check != "y") {
+                continue;
+            }
+        }
         _post_data(target);
     }
 }
