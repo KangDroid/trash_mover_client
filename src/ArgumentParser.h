@@ -57,6 +57,11 @@ protected:
             "verbose", [this]() {
                 args_definition.setIsVerbose(true);
             }
+        },
+        {
+            "version", [this]() {
+                args_definition.setShowVersion(true);
+            }
         }
     };
 

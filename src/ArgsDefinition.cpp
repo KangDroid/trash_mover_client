@@ -32,6 +32,7 @@ ArgsDefinition::ArgsDefinition() {
     this->server_on = false;
     this->is_recursive = false;
     this->is_force = false;
+    this->show_version = false;
 }
 
 bool ArgsDefinition::isVerbose() const {
@@ -40,4 +41,12 @@ bool ArgsDefinition::isVerbose() const {
 
 void ArgsDefinition::setIsVerbose(bool isVerbose) {
     is_verbose = isVerbose;
+}
+
+bool ArgsDefinition::isShowVersion() const {
+    return show_version;
+}
+
+void ArgsDefinition::setShowVersion(bool showVersion) {
+    show_version = showVersion;
 }

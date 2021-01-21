@@ -23,6 +23,9 @@ private:
     // --verbose | -v
     bool is_verbose;
 
+    // --version
+    bool show_version;
+
 public:
     // Default Constructor
     ArgsDefinition();
@@ -37,6 +40,8 @@ public:
     void setIsForce(bool isForce);
     bool isVerbose() const;
     void setIsVerbose(bool isVerbose);
+    bool isShowVersion() const;
+    void setShowVersion(bool showVersion);
 };
 
 

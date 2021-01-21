@@ -31,6 +31,8 @@ protected:
 
     bool _post_data(string delete_target);
 
+    bool show_version();
+
 public:
     ServerCommunication();
     ServerCommunication(ArgsDefinition* inputArgs);

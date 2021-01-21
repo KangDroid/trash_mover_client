@@ -52,6 +52,11 @@ ServerCommunication::ServerCommunication() {
 }
 
 void ServerCommunication::post_data(vector<string>& to_delete) {
+    if (args_def->isShowVersion()) {
+        show_version();
+        return;
+    }
+
     for (string target : to_delete) {
         if (!args_def->isForce()) {
             string input_check;
@@ -84,4 +89,28 @@ bool ServerCommunication::_post_data(string delete_target) {
         }
         return !response.empty() && (response.find(filesystem::path(delete_target).filename()) != string::npos);
     });
+}
+
+bool ServerCommunication::show_version() {
+    string response;
+    // Basic http request variable building
+    http_request request_type(methods::GET);
+    http_client client(custom_uri_builder("api/settings/get").to_string());
+
+    // Response Json
+    json::value root_value;
+
+    bool isSucceed = request_server(request_type, client, [&root_value](const string& input) {
+        root_value = web::json::value::parse(input);
+        return !input.empty() && input.find("trashCanPath") != string::npos;
+    });
+
+    cout << "Trash Can Path: " << root_value["trashCanPath"].as_string() << endl;
+    cout << "Server Version: " << root_value["serverVersion"].as_string() << endl;
+    cout << "Client Version: " << KDR_TRASH_MOVER_VER << "[" << KDR_LATEST_COMMIT << "]" <<endl;
+    cout << "Compiled with " << __VERSION__ << ",";
+    cout << " on: " << __DATE__ << ", " << __TIME__ << endl;
+
+    // Check whether server is alive.
+    return isSucceed;
 }

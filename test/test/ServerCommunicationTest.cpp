@@ -81,4 +81,11 @@ TEST_F(ServerCommunicationTest, CheckVerboseWorks) {
     }
     delete args_def;
 }
+
+TEST_F(ServerCommunicationTest, CheckVersionWorks) {
+    bool isSucceed = show_version();
+
+    // Assert
+    EXPECT_EQ(isSucceed, true);
+}
 #endif
