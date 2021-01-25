@@ -8,6 +8,10 @@
 #include "ServerCommunication.h"
 
 class ServerCommunicationTest : public testing::Test, protected ServerCommunication {
+protected:
+    ServerCommunicationTest() {
+        check_server_alive();
+    }
 };
 
 TEST_F(ServerCommunicationTest, CheckURINormal) {
@@ -32,7 +36,6 @@ TEST_F(ServerCommunicationTest, CheckRequestNormal) {
     EXPECT_EQ(assert_this, true);
 }
 
-#if defined(KDR_PRIVATE_TEST)
 TEST_F(ServerCommunicationTest, CheckPostingWorks) {
     args_def = new ArgsDefinition();
     // First create files
@@ -46,7 +49,7 @@ TEST_F(ServerCommunicationTest, CheckPostingWorks) {
 
         // assert
         bool assert_this = _post_data(file_name);
-        EXPECT_EQ(assert_this, true);
+        EXPECT_EQ(assert_this, (server_alive) ? true : false);
         test_file.close();
 
         // cleanup
@@ -71,7 +74,7 @@ TEST_F(ServerCommunicationTest, CheckVerboseWorks) {
 
         // assert
         bool assert_this = _post_data(file_name);
-        EXPECT_EQ(assert_this, true);
+        EXPECT_EQ(assert_this, (server_alive) ? true : false);
         test_file.close();
 
         // cleanup
@@ -86,7 +89,7 @@ TEST_F(ServerCommunicationTest, CheckVersionWorks) {
     bool isSucceed = show_version();
 
     // Assert
-    EXPECT_EQ(isSucceed, true);
+    EXPECT_EQ(isSucceed, (server_alive) ? true : false);
 }
 
 TEST_F(ServerCommunicationTest, CheckShowingAllWorks) {
@@ -110,7 +113,6 @@ TEST_F(ServerCommunicationTest, CheckShowingAllWorks) {
         }
     }
 
-    EXPECT_EQ(show_all(), true);
+    EXPECT_EQ(show_all(), (server_alive) ? true : false);
     delete args_def;
 }
-#endif
