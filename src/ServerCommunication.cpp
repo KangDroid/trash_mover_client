@@ -108,8 +108,13 @@ bool ServerCommunication::show_version() {
         return !input.empty() && input.find("trashCanPath") != string::npos;
     });
 
-    cout << "Trash Can Path: " << root_value["trashCanPath"].as_string() << endl;
-    cout << "Server Version: " << root_value["serverVersion"].as_string() << endl;
+    if (isSucceed) {
+        cout << "Trash Can Path: " << root_value["trashCanPath"].as_string() << endl;
+        cout << "Server Version: " << root_value["serverVersion"].as_string() << endl;
+    } else {
+        cerr << "Error: Server is not running![Trash can path, server version will not be shown]" << endl;
+    }
+
     cout << "Client Version: " << KDR_TRASH_MOVER_VER << "[" << KDR_LATEST_COMMIT << "]" <<endl;
     cout << "Compiled with " << __VERSION__ << ",";
     cout << " on: " << __DATE__ << ", " << __TIME__ << endl;
