@@ -61,6 +61,16 @@ void ServerCommunication::post_data(vector<string>& to_delete) {
     } else if (args_def->isRestoreMenu()) {
         show_restore();
         return;
+    } else if (args_def->isClearAll()) {
+        string value;
+        cout << "Really empty trashcan?[y/n] : ";
+        getline(cin, value);
+        if (value == "y" || value == "Y" || value == "yes") {
+            clear_all_data();
+        } else {
+            cout << "Abort." << endl;
+        }
+        return;
     }
 
     for (string target : to_delete) {
@@ -197,5 +207,22 @@ bool ServerCommunication::restore_post(string target) {
         bool result = (response == RESTORE_FULL_SUCCESS);
         ((result) ? cout : cerr) << response << endl;
         return result;
+    });
+}
+
+bool ServerCommunication::clear_all_data() {
+    // Client
+    http_client client_req(custom_uri_builder("api/trash/data/empty").to_string());
+
+    // The body
+    http_request request_type(methods::DEL);
+
+    // The response
+    string response_value;
+
+    // Return value
+    return request_server(request_type, client_req, [&response_value](string response) {
+        response_value = response;
+        return (response == "true");
     });
 }

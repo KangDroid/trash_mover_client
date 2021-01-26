@@ -56,6 +56,8 @@ protected:
 
     bool restore_post(string target);
 
+    bool clear_all_data();
+
 public:
     ServerCommunication();
     ServerCommunication(ArgsDefinition* inputArgs);

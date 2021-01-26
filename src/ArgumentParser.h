@@ -41,6 +41,10 @@ protected:
         { 'R', [this]() {
             args_definition.setRestoreMenu(true);
             }
+        },
+        { 'C', [this]() {
+                args_definition.setClearAll(true);
+            }
         }
     };
 
@@ -79,6 +83,11 @@ protected:
         {
             "restore", [this]() {
                 args_definition.setRestoreMenu(true);
+            }
+        },
+        {
+            "clear", [this]() {
+                args_definition.setClearAll(true);
             }
         }
     };

@@ -32,6 +32,9 @@ private:
     // --restore | -R
     bool restore_menu;
 
+    // --clear | -C
+    bool clear_all;
+
 public:
     // Default Constructor
     ArgsDefinition();
@@ -52,6 +55,8 @@ public:
     void setShowAll(bool showAll);
     bool isRestoreMenu() const;
     void setRestoreMenu(bool restoreMenu);
+    bool isClearAll() const;
+    void setClearAll(bool clearAll);
 };
 
 

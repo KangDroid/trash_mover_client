@@ -66,3 +66,11 @@ bool ArgsDefinition::isRestoreMenu() const {
 void ArgsDefinition::setRestoreMenu(bool restoreMenu) {
     restore_menu = restoreMenu;
 }
+
+bool ArgsDefinition::isClearAll() const {
+    return clear_all;
+}
+
+void ArgsDefinition::setClearAll(bool clearAll) {
+    clear_all = clearAll;
+}
