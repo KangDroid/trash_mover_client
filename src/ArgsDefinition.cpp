@@ -58,3 +58,11 @@ bool ArgsDefinition::isShowAll() const {
 void ArgsDefinition::setShowAll(bool showAll) {
     show_all = showAll;
 }
+
+bool ArgsDefinition::isRestoreMenu() const {
+    return restore_menu;
+}
+
+void ArgsDefinition::setRestoreMenu(bool restoreMenu) {
+    restore_menu = restoreMenu;
+}

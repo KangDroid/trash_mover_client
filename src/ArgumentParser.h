@@ -37,6 +37,10 @@ protected:
         { 's', [this]() {
                 args_definition.setShowAll(true);
             }
+        },
+        { 'R', [this]() {
+            args_definition.setRestoreMenu(true);
+            }
         }
     };
 
@@ -70,6 +74,11 @@ protected:
         {
             "show", [this]() {
                 args_definition.setShowAll(true);
+            }
+        },
+        {
+            "restore", [this]() {
+                args_definition.setRestoreMenu(true);
             }
         }
     };

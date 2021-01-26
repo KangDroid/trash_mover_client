@@ -116,3 +116,12 @@ TEST_F(ServerCommunicationTest, CheckShowingAllWorks) {
     EXPECT_EQ(show_all(), (server_alive) ? true : false);
     delete args_def;
 }
+
+// TODO: True test?
+TEST_F(ServerCommunicationTest, CheckRestoreCommunicationWorksFalse) {
+    if (filesystem::exists("/tmp/test.txt")) {
+        filesystem::remove("/tmp/test.txt");
+    }
+
+    EXPECT_EQ(restore_post("/tmp/test.txt"), false);
+}

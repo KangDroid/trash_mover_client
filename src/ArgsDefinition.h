@@ -29,6 +29,9 @@ private:
     // --show | -s
     bool show_all;
 
+    // --restore | -R
+    bool restore_menu;
+
 public:
     // Default Constructor
     ArgsDefinition();
@@ -47,6 +50,8 @@ public:
     void setShowVersion(bool showVersion);
     bool isShowAll() const;
     void setShowAll(bool showAll);
+    bool isRestoreMenu() const;
+    void setRestoreMenu(bool restoreMenu);
 };
 
 

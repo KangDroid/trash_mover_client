@@ -58,6 +58,9 @@ void ServerCommunication::post_data(vector<string>& to_delete) {
     } else if (args_def->isShowAll()) {
         show_all();
         return;
+    } else if (args_def->isRestoreMenu()) {
+        show_restore();
+        return;
     }
 
     for (string target : to_delete) {
@@ -138,6 +141,12 @@ bool ServerCommunication::show_all() {
     });
 
     for (int i = 0; i < root_value.size(); i++) {
+        restore_list.emplace_back(
+                root_value[i]["cwdLocation"].as_string(),
+                root_value[i]["originalFileDirectory"].as_string(),
+                root_value[i]["trashFileDirectory"].as_string()
+        );
+        cout << "File " << i+1 << ":" << endl;
         cout << "CWD Location: " << root_value[i]["cwdLocation"].as_string() << endl;
         cout << "Original File Path: " << root_value[i]["originalFileDirectory"].as_string() << endl;
         cout << "Trash File Path: " << root_value[i]["trashFileDirectory"].as_string() << endl;
@@ -145,4 +154,48 @@ bool ServerCommunication::show_all() {
     }
 
     return isSucceed;
+}
+
+void ServerCommunication::show_restore() {
+    int input;
+    if (!show_all()) {
+        return;
+    }
+
+    cout << "Enter file index number to restore! : ";
+    cin >> input;
+
+    if ((input < 1 || input > restore_list.size())) {
+        cerr << "Error: Input range is between 1 ~ " << restore_list.size() << endl;
+        return;
+    }
+
+    if (restore_list[input-1].originalFileDirectory == "EXTERNAL" || restore_list[input-1].cwdLocation == "EXTERNAL") {
+        cerr << "Error: file " << restore_list[input-1].trashFileDirectory << " is added externally to trash folder." << endl;
+        return;
+    }
+
+    restore_post(restore_list[input-1].trashFileDirectory);
+}
+
+bool ServerCommunication::restore_post(string target) {
+    // Client
+    http_client client_req(custom_uri_builder("api/trash/data/restore").to_string());
+
+    // The body
+    http_request request_type(methods::POST);
+    json::value main_post = json::value::object();
+    main_post["trashFileDirectory"] = json::value::string(target);
+    request_type.set_body(main_post);
+
+    // The response
+    string response_value;
+
+    // Return value
+    return request_server(request_type, client_req, [&response_value](string response) {
+        response_value = response;
+        bool result = (response == RESTORE_FULL_SUCCESS);
+        ((result) ? cout : cerr) << response << endl;
+        return result;
+    });
 }
