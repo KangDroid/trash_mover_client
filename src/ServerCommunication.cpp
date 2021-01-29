@@ -118,11 +118,11 @@ bool ServerCommunication::show_version() {
 
     bool isSucceed = request_server(request_type, client, [&root_value](const string& input) {
         root_value = web::json::value::parse(input);
-        return !input.empty() && input.find("trashCanPath") != string::npos;
+        return !input.empty() && input.find("trashPath") != string::npos;
     });
 
     if (isSucceed) {
-        cout << "Trash Can Path: " << root_value["trashCanPath"].as_string() << endl;
+        cout << "Trash Can Path: " << root_value["trashPath"].as_string() << endl;
         cout << "Server Version: " << root_value["serverVersion"].as_string() << endl;
     } else {
         cerr << "Error: Server is not running![Trash can path, server version will not be shown]" << endl;
