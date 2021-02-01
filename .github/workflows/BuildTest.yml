@@ -1,0 +1,53 @@
+name: BuildTest
+
+# Every push, we do build and testing process.
+on: push
+
+jobs:
+  BuildLinux:
+    # Name the Job
+    name: Build on Linux
+
+    # Set the type of machine to run on
+    runs-on: ubuntu-20.04
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Run Test operation
+      - name: Testing Code
+        run: |
+          git submodule init
+          git submodule update
+          sudo apt install -y libcpprest-dev
+          /bin/rm -rf ./build
+          mkdir build
+          cmake ./ -Bbuild
+          make -C ./build -j16
+          build/test/TrashMoverTest
+
+  BuildmacOS:
+    # Name the Job
+    name: Build on macOS
+
+    # Set the type of machine to run on
+    runs-on: macos-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Run Test operation
+      - name: Testing Code
+        run: |
+          brew install cpprestsdk
+          git submodule init
+          git submodule update
+          /bin/rm -rf ./build
+          mkdir build
+          cmake ./ -Bbuild
+          make -C ./build -j16
+          build/test/TrashMoverTest
