@@ -10,6 +10,7 @@
 #include <cpprest/json.h>
 #include <utility>
 #include <vector>
+#include <filesystem>
 
 #include "ArgsDefinition.h"
 

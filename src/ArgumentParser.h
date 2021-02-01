@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <vector>
 #include <filesystem>
+#include <functional>
 #include "ArgsDefinition.h"
 
 using namespace std;
