@@ -5,7 +5,7 @@ then
 fi
 
 mkdir build
-cmake ./ -Bbuild -DTESTING=true
+cmake ./ -Bbuild
 
 make -C ./build -j16
 
