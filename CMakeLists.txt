@@ -10,8 +10,4 @@ string(REGEX REPLACE "\n$" "" LATEST_COMMIT "${LATEST_COMMIT}")
 set(CMAKE_CXX_FLAGS "-DKDR_TRASH_MOVER_VER=\"\\\"${TM_VERSION}\\\"\" -DKDR_LATEST_COMMIT=\"\\\"${LATEST_COMMIT}\\\"\"")
 
 add_subdirectory(src)
-
-if (DEFINED TESTING)
-    set(KDRTESTING ON)
-endif(DEFINED TESTING)
 add_subdirectory(test)
