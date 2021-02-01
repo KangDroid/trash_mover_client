@@ -151,3 +151,5 @@ fabric.properties
 src/TrashMoverClient
 test/TrashMoverTest
 build
+.vscode
+.idea
