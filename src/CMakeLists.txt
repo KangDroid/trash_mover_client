@@ -14,5 +14,5 @@ string(REGEX REPLACE "\n$" "" LATEST_COMMIT "${LATEST_COMMIT}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_TURN_OFF_PLATFORM_STRING")
 
-add_executable(TrashMoverClient main.cpp ArgumentParser.cpp ArgsDefinition.cpp ServerCommunication.cpp)
+add_executable(TrashMoverClient main.cpp ArgumentParser.cpp ArgsDefinition.cpp ServerCommunication.cpp ServerDownloader.cpp ServerDownloader.h)
 TARGET_LINK_LIBRARIES(TrashMoverClient PRIVATE cpprestsdk::cpprest OpenSSL::SSL Boost::system OpenSSL::Crypto)

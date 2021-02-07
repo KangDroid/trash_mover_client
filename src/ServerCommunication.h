@@ -13,6 +13,7 @@
 #include <filesystem>
 
 #include "ArgsDefinition.h"
+#include "ServerDownloader.h"
 
 using namespace std;
 using namespace web;

@@ -71,6 +71,8 @@ void ServerCommunication::post_data(vector<string>& to_delete) {
             cout << "Abort." << endl;
         }
         return;
+    } else if (args_def->isServerOn()) {
+        ServerDownloader::init_server();
     }
 
     for (string target : to_delete) {
